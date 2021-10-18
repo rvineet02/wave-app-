@@ -24,13 +24,19 @@ const main = async () => {
 
 	let waveCount;
 	waveCount = await waveContract.getTotalWaves();
-	const waveTxn = await waveContract.wave();
-	await waveTxn.wait()
+
+	let waveTxn = await waveContract.wave();
+	await waveTxn.wait();
+	waveCount = await waveContract.getTotalWaves();
+
+	waveTxn = await waveContract.connect(randomPerson).wave();
+	await waveTxn.wait();
+
 	waveCount = await waveContract.getTotalWaves();
 
 	// lines 25-29 are us manually calling our functions (similar to an API call)
 	// we get # of waves, then wave and get # of waves to check if it has been updated after the wave 
-	
+
 
 };
 
