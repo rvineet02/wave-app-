@@ -29,6 +29,7 @@ const main = async () => {
 	await waveTxn.wait();
 	waveCount = await waveContract.getTotalWaves();
 
+	// random person state variable connects to contract and waves 
 	waveTxn = await waveContract.connect(randomPerson).wave();
 	await waveTxn.wait();
 
