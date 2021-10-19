@@ -26,3 +26,6 @@ runMain();
 
 // npx hardhat node is a server for hardhat to make etheruem network stay alive 
 // npx hardhat run scripts/deploy.js --network localhost : deploy locally 
+// npx hardhat run scripts/deploy.js --network rinkeby : deploy to rinkeby network 
+
+// WavePortal address:  0xF9C1D356D8815b5EBa8fa3A4a41857eB3da0d492 : deployed to rinkeby 
