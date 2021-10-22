@@ -1,7 +1,9 @@
+const { hexZeroPad } = require("@ethersproject/bytes");
+
 const main = async () => {
 
 
-	const [owner, randomPerson] = await hre.ethers.getSigners();
+	// const [owner, randomPerson] = await hre.ethers.getSigners();
 
 	//compile our contract and generate the necessary files we need
 	// under the artifacts directory
@@ -20,22 +22,25 @@ const main = async () => {
 
 	//this is how we find our contract on the blockchain. 
 	console.log("Contract Deployed to:", waveContract.address);
-	console.log("Contract deployed by: ", owner.address);
+	// console.log("Contract deployed by: ", owner.address);
 
 	let waveCount;
 	waveCount = await waveContract.getTotalWaves();
+	console.log(waveCount.toNumber());
 
-	let waveTxn = await waveContract.wave();
-	await waveTxn.wait();
-	waveCount = await waveContract.getTotalWaves();
+	// sending waves
+	let waveTxn = await waveContract.wave("A new Message");
+	await waveTxn.wait(); // wait for the transaction to be mined
 
-	// random person state variable connects to contract and waves 
-	waveTxn = await waveContract.connect(randomPerson).wave();
-	await waveTxn.wait();
+	const [_, randomPerson] = await hre.ethers.getSigners();
+	waveTxn = await waveContract.connect(randomPerson).wave('Another message!'); // randomPerson is waving (testing on local network)
+	await waveTxn.wait(); // Wait for the transaction to be mined
 
-	waveCount = await waveContract.getTotalWaves();
 
-	// lines 25-29 are us manually calling our functions (similar to an API call)
+  let allWaves = await waveContract.getAllWaves();
+  console.log(allWaves);
+
+	// Are us manually calling our functions (similar to an API call)
 	// we get # of waves, then wave and get # of waves to check if it has been updated after the wave 
 
 
